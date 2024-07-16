@@ -13,14 +13,20 @@
 <jsp:setProperty property="*" name="u"/>
 
 <%
-    User user = new User(request.getParameter("loginEmail"), request.getParameter("loginPass"));
+    String loginEmail = request.getParameter("loginEmail");
+    String loginPass = request.getParameter("loginPass");
 
-    try {
-        int i = UserDao.getUser(user);
-        if(i > 0){
-            response.sendRedirect("welcome.jsp");
+    if (u.getEmail().equals(loginEmail) && u.getPassword().equals(loginPass)) {
+        User user = new User(loginEmail, loginPass);
+
+        try {
+            int i = UserDao.getUser(user);
+            if(i > 0){
+                response.sendRedirect("welcome.jsp");
+
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-    } catch (SQLException e) {
-        throw new RuntimeException(e);
     }
 %>
