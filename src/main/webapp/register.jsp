@@ -14,7 +14,7 @@
     Logger logger = Logger.getLogger("RegisterJSP");
     logger.info("Starting registration process");
 
-    User u = new User(request.getParameter("username"), request.getParameter("password"), request.getParameter("email"));
+    User u = new User(request.getParameter("username"), request.getParameter("email"), request.getParameter("password"));
 
     try {
         logger.info("Saving user: " + u.getName());

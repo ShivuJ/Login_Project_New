@@ -1,5 +1,7 @@
 package com.example.loginProjectNew;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -19,7 +21,7 @@ public class UserDao {
         return con;
     }
 
-    public static int save(User u) throws SQLException {
+    public static int save(@NotNull User u) throws SQLException {
         int status = 0;
         try {
             Connection con = getConnection();
@@ -30,6 +32,19 @@ public class UserDao {
             status = ps.executeUpdate();
             System.out.println("Data inserted successfully");
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return status;
+    }
+
+    public static int getUser(@org.jetbrains.annotations.NotNull User u) throws SQLException {
+        int status = 0;
+        try{
+            Connection con = getConnection();
+            PreparedStatement ps = con.prepareStatement("select * from login where email = ?,password = ?");
+            ps.setString(1, u.getEmail());
+            ps.setString(2, u.getPassword());
+        }catch (SQLException e){
             throw new RuntimeException(e);
         }
         return status;
