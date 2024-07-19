@@ -20,6 +20,6 @@
     </div>
 </div>
 
-<jsp:include page="index.jsp"></jsp:include>
+<jsp:include page="index.jsp"/>
 </body>
 </html>
