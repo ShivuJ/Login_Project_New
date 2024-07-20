@@ -21,27 +21,25 @@
         System.out.println("Login attempt for: " + loginEmail);
 
         try {
+            // Retrieve email and password from the database for the given user
             String dbEmail = UserDao.getUserEmail(user);
             String dbPass = UserDao.getUserPassword(user);
             System.out.println("Database email: " + dbEmail);
             System.out.println("Database password: " + dbPass);
 
-            if (dbEmail != null && dbPass != null) {
-                if (loginEmail.equals(dbEmail) && loginPass.equals(dbPass)) {
-                    session.setAttribute("user", user);
-                    response.sendRedirect("welcome.jsp");
-                } else {
-                    response.sendRedirect("login.jsp?error=Invalid%20email%20or%20password");
-                }
+            // Compare provided credentials with those retrieved from the database
+            if (loginEmail.equals(dbEmail) && loginPass.equals(dbPass)) {
+                System.out.println("Login successful for: " + loginEmail);
+                session.setAttribute("user", user);
+                response.sendRedirect("welcome.jsp");
             } else {
-                response.sendRedirect("login.jsp?error=User%20not%20found");
+                response.sendRedirect("login.jsp?error=Invalid%20email%20or%20password");
             }
         } catch (SQLException e) {
             System.out.println("SQL Exception: " + e.getMessage());
-            throw new RuntimeException(e);
+            response.sendRedirect("login.jsp?error=Database%20connection%20error");
         }
     } else {
         response.sendRedirect("login.jsp?error=Please%20enter%20email%20and%20password");
     }
 %>
-
