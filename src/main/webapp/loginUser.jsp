@@ -8,29 +8,28 @@
 <%@ page import="com.example.loginProjectNew.UserDao" %>
 <%@ page import="com.example.loginProjectNew.User" %>
 <%@ page import="java.sql.SQLException" %>
-<%@ page session="true" %> <!-- Ensure session management is enabled -->
 
 <%
-    System.out.println("Tried Login");
+    System.out.println("Page Loaded");
     String loginEmail = request.getParameter("loginEmail");
     String loginPass = request.getParameter("loginPass");
 
     if (loginEmail != null && loginPass != null) {
         User user = new User(loginEmail, loginPass);
         System.out.println("Login attempt for: " + loginEmail);
-        String dbEmail;
-        String dbPass;
+
+        String dbEmail = null;
+        String dbPass = null;
         try {
             dbEmail = UserDao.getUserEmail(user);
             dbPass = UserDao.getUserPassword(user);
+            System.out.println("Database email: " + dbEmail);
+            System.out.println("Database password: " + dbPass);
         } catch (SQLException e) {
+            System.out.println("SQL Exception: " + e.getMessage());
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
-
-        // Retrieve email and password from the database for the given user
-
-        System.out.println("Database email: " + dbEmail);
-        System.out.println("Database password: " + dbPass);
 
         // Compare provided credentials with those retrieved from the database
         if (loginEmail.equals(dbEmail) && loginPass.equals(dbPass)) {
@@ -38,10 +37,11 @@
             session.setAttribute("user", user);
             response.sendRedirect("welcome.jsp");
         } else {
-            response.sendRedirect("login.jsp?error=Invalid%20email%20or%20password");
+            System.out.println("Invalid email or password");
+            response.sendRedirect("loginError.jsp");
         }
     } else {
+        System.out.println("Email or password is null");
         response.sendRedirect("login.jsp?error=Please%20enter%20email%20and%20password");
     }
 %>
-

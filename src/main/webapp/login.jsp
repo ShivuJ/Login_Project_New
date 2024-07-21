@@ -13,7 +13,19 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-<form>
+<style>
+    form{
+        margin: 5px;
+        padding: 15px;
+        width: 50%;
+        border: 1px solid black;
+        mso-border-shadow: yes;
+    }
+    input{
+        width: 25%;
+    }
+</style>
+<form action="loginUser.jsp" method="post">
     <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Email address</label>
         <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="loginEmail">

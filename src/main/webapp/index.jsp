@@ -7,6 +7,20 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+
+<style>
+    form{
+        margin: 5px;
+        padding: 15px;
+        width: 50%;
+        border: 1px solid black;
+        mso-border-shadow: yes;
+    }
+    input{
+        width: 25%;
+    }
+</style>
+
 <h1><%= "Hello World!" %>
 </h1>
 <br/>
