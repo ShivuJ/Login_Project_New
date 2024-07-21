@@ -35,7 +35,7 @@ public class UserDao {
     public static String getUserEmail(User u) throws SQLException {
         String email = null;
         try (Connection con = getConnection();
-             PreparedStatement ps = con.prepareStatement("select email from login where email = ?")) {
+            PreparedStatement ps = con.prepareStatement("select email from login where email = ?")) {
             ps.setString(1, u.getEmail());
             try (ResultSet resultSet = ps.executeQuery()) {
                 if (resultSet.next()) {
